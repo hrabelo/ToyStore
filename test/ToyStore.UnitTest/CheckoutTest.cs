@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using ToyStore.Application;
+using Xunit;
 
 namespace ToyStore.UnitTest
 {
@@ -8,7 +9,7 @@ namespace ToyStore.UnitTest
         public void AddItem_Should_Increase_Total_Chart_Price()
         {
             var checkout = new Checkout();
-            checkout.AddItem(new Toy(5));
+            checkout.AddItem(5);
             Assert.Equal(5, checkout.TotalPrice);
         }
     }
