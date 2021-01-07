@@ -1,15 +1,18 @@
-﻿namespace ToyStore.Application
+﻿using System.Xml;
+
+namespace ToyStore.Application
 {
     public class Checkout
     {
         public decimal TotalPrice { get; set; }
+        private static readonly decimal discount = 0.9m;
 
         public void AddItem(decimal price, int quantity = 1)
         {
+            TotalPrice += price * quantity;
             if (quantity >= 5)
-                TotalPrice += price * quantity * 0.9m;
-            else
-                TotalPrice += price*quantity;
+                TotalPrice *= discount;
         }
+
     }
 }
