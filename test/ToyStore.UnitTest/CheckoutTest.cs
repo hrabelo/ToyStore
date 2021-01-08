@@ -20,5 +20,15 @@ namespace ToyStore.UnitTest
             checkout.AddItem(5, 10);
             Assert.Equal(45, checkout.TotalPrice);
         }
+
+        [Fact]
+        public void RemoveItem_Should_Decrease_Total_Chart_Price()
+        {
+            var checkout = new Checkout();
+            checkout.AddItem(10);
+            checkout.AddItem(15);
+            checkout.RemoveItem(10);
+            Assert.Equal(15, checkout.TotalPrice);
+        }
     }
 }
