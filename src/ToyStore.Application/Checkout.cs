@@ -1,7 +1,4 @@
-﻿using System;
-using System.Xml;
-
-namespace ToyStore.Application
+﻿namespace ToyStore.Application
 {
     public class Checkout
     {
@@ -15,7 +12,7 @@ namespace ToyStore.Application
                 TotalPrice *= discount;
         }
 
-        public void RemoveItem(decimal price)
+        public void RemoveItem(decimal price, int quantity = 1)
         {
             TotalPrice = TotalPrice - price > 0 ? TotalPrice - price : 0;
         }
