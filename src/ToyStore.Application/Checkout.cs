@@ -17,7 +17,7 @@ namespace ToyStore.Application
 
         public void RemoveItem(decimal price)
         {
-            TotalPrice -= price;
+            TotalPrice = TotalPrice - price > 0 ? TotalPrice - price : 0;
         }
     }
 }
