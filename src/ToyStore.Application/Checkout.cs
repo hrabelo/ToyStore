@@ -1,32 +1,49 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using ToyStore.Domain;
 
 namespace ToyStore.Application
 {
     public class Checkout
     {
-        public decimal TotalPrice { get; set; }
-        private readonly decimal discount = 0.9m;
-        private bool hasDiscount = false;
+        private const decimal discount = 0.9m;
+        private Dictionary<Toy, int> _chart;
 
-        public void AddItem(decimal price, int quantity = 1)
+        public decimal TotalPrice
         {
-            TotalPrice += price * quantity;
-            if (quantity >= 5)
-            {
-                TotalPrice *= discount;
-                hasDiscount = true;
-            }
-
+            get { return _chart.Sum(o => o.Value * GetDiscount(o.Value) * o.Key.Price); }
+        }
+                
+        public Checkout()
+        {
+            _chart = new Dictionary<Toy, int>();
         }
 
-        public void RemoveItem(decimal price, int quantity = 1)
+        public void AddItem(Toy toy, int quantity = 1)
         {
-            if (hasDiscount)
+            if (!_chart.ContainsKey(toy))
+                _chart.Add(toy, quantity);
+            else
+                _chart[toy] += quantity;
+        }
+
+        public void RemoveItem(Toy toy, int quantity = 1)
+        {
+            if (_chart.ContainsKey(toy))
             {
-                TotalPrice /= discount;
-                hasDiscount = false;
+                if (quantity >= _chart[toy])
+                    _chart.Remove(toy);
+                else
+                    _chart[toy] -= quantity;
             }
-            TotalPrice = TotalPrice - quantity * price > 0 ? TotalPrice - quantity * price : 0;
+        }
+
+        private decimal GetDiscount(int quantity)
+        {
+            if (quantity >= 5)
+                return discount;
+
+            return 1;
         }
     }
 }
