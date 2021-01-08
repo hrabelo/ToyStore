@@ -40,5 +40,15 @@ namespace ToyStore.UnitTest
             checkout.RemoveItem(30);
             Assert.Equal(0, checkout.TotalPrice);
         }
+
+
+        [Fact]
+        public void RemoveItem_Below_Discount_Mark_Should_Remove_Discount()
+        {
+            var checkout = new Checkout();
+            checkout.AddItem(10, 6);
+            checkout.RemoveItem(10, 2);
+            Assert.Equal(40, checkout.TotalPrice);
+        }
     }
 }
