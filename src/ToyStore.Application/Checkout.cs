@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System;
+using System.Xml;
 
 namespace ToyStore.Application
 {
@@ -14,5 +15,9 @@ namespace ToyStore.Application
                 TotalPrice *= discount;
         }
 
+        public void RemoveItem(decimal price)
+        {
+            TotalPrice -= price;
+        }
     }
 }
